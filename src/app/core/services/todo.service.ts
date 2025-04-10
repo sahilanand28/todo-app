@@ -16,10 +16,26 @@ export class TodoService {
 
   constructor(private http: HttpClient) {}
 
-  // Loads all todo lists from the backend and pushes to the subject
+  // Helper to safely access localStorage
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined';
+  }
+
+  // Loads all todo lists from localStorage or backend and pushes to the subject
   loadLists(): void {
+    if (this.isBrowser()) {
+      const localData = localStorage.getItem('todoLists');
+      if (localData) {
+        this.todoListsSubject.next(JSON.parse(localData));
+        return;
+      }
+    }
+
     this.http.get<TodoList[]>(this.baseUrl).subscribe((lists) => {
       this.todoListsSubject.next(lists);
+      if (this.isBrowser()) {
+        localStorage.setItem('todoLists', JSON.stringify(lists));
+      }
     });
   }
 
@@ -31,7 +47,7 @@ export class TodoService {
   // Adds a new todo list and updates the subject
   addTodoList(title: string): Observable<TodoList> {
     const newList: TodoList = {
-      id: Date.now().toString(), // Generate ID using timestamp
+      id: Date.now().toString(),
       title,
       tasks: [],
     };
@@ -39,7 +55,11 @@ export class TodoService {
     return this.http.post<TodoList>(this.baseUrl, newList).pipe(
       tap((createdList) => {
         const current = this.todoListsSubject.getValue();
-        this.todoListsSubject.next([...current, createdList]);
+        const updated = [...current, createdList];
+        this.todoListsSubject.next(updated);
+        if (this.isBrowser()) {
+          localStorage.setItem('todoLists', JSON.stringify(updated));
+        }
       })
     );
   }
@@ -49,7 +69,7 @@ export class TodoService {
     return this.getTodoListById(listId).pipe(
       switchMap((list) => {
         const newTask: Task = {
-          id: Date.now(), // Use timestamp for task ID
+          id: Date.now(),
           title,
           description,
           completed: false,
@@ -87,12 +107,14 @@ export class TodoService {
     );
   }
 
-  // Updates the list in the subject with the new version
+  // Updates the list in the subject and localStorage with the new version
   private updateListInSubject(updatedList: TodoList): void {
     const current = this.todoListsSubject.getValue();
-    const updated = current.map((list) =>
-      list.id === updatedList.id ? updatedList : list
-    );
+    const updated = current.map((list) => (list.id === updatedList.id ? updatedList : list));
     this.todoListsSubject.next(updated);
+
+    if (this.isBrowser()) {
+      localStorage.setItem('todoLists', JSON.stringify(updated));
+    }
   }
 }

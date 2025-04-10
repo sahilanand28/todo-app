@@ -30,16 +30,37 @@ describe('TodoService (Extended Tests)', () => {
       { id: '1', title: 'List 1', tasks: [] },
       { id: '2', title: 'List 2', tasks: [] }
     ];
-
+  
+    // Clear or mock localStorage before the test
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+  
     let result: TodoList[] = [];
     service.todoLists$.subscribe((lists) => (result = lists));
-
+  
     service.loadLists();
+  
     const req = httpMock.expectOne('http://localhost:3000/lists');
     expect(req.request.method).toBe('GET');
     req.flush(dummyLists);
-
+  
     expect(result).toEqual(dummyLists);
+  });
+
+  it('should load from localStorage if available and skip HTTP call', () => {
+    const mockLocalData: TodoList[] = [
+      { id: '999', title: 'Local List', tasks: [] }
+    ];
+  
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockLocalData));
+    const httpSpy = spyOn(httpMock, 'expectOne'); // should never be called
+  
+    let result: TodoList[] = [];
+    service.todoLists$.subscribe((lists) => (result = lists));
+  
+    service.loadLists();
+  
+    expect(result).toEqual(mockLocalData);
+    expect(httpSpy).not.toHaveBeenCalled();
   });
 
   it('should get a list by ID', () => {
