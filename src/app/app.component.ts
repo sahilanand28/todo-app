@@ -1,12 +1,25 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [RouterOutlet, MatToolbarModule],
+  template: `
+    <mat-toolbar color="primary">Todo App</mat-toolbar>
+    <div class="main-container">
+      <router-outlet></router-outlet>
+    </div>
+  `,
+  styles: [
+    `
+      .main-container {
+        padding: 16px;
+      }
+    `,
+  ],
 })
 export class AppComponent {
-  title = 'todo-app';
+  title = 'Todo App';
 }

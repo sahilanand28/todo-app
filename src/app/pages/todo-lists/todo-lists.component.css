@@ -1,0 +1,59 @@
+.page-container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* more space between label/input/button */
+  margin-bottom: 24px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dense-field .mat-form-field-wrapper {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.dense-field .mat-form-field-infix {
+  padding: 12px 0 6px 0; /* tighter vertical spacing inside input */
+}
+
+.list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.list-card {
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border-radius: 12px;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* ✅ The hover uses a soft version of primary (Material's indigo) */
+.list-card:hover {
+  transform: translateY(-4px);
+  background-color: #e8eaf6; /* Indigo 50 from Material palette */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+mat-card-title {
+  padding: 16px 16px 0 16px;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+mat-card-content {
+  padding: 8px 16px 16px 16px;
+  font-size: 0.95rem;
+}

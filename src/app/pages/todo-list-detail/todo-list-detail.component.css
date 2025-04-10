@@ -1,0 +1,61 @@
+.page-container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dense-field .mat-form-field-wrapper {
+  padding-bottom: 0.75em;
+}
+
+.task-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.task-card {
+  background: #f9f9f9;
+  border-radius: 12px;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* ✅ Theme-aligned hover effect */
+.task-card:hover {
+  background-color: #e8eaf6; /* Material Indigo 50 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+}
+
+mat-card-title {
+  padding: 16px 16px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+mat-card-content {
+  padding: 8px 16px 16px 16px;
+}
+
+mat-card-content p {
+  margin: 4px 0;
+}

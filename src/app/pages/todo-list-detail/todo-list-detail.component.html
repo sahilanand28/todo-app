@@ -1,0 +1,56 @@
+<div class="page-container">
+  <!-- Back Button -->
+  <div style="margin-bottom: 16px">
+    <button mat-stroked-button color="primary" (click)="goBack()" class="back-button">
+      <mat-icon style="margin-right: 4px">arrow_back</mat-icon>
+      Back to Lists
+    </button>
+  </div>
+
+  <!-- Add Task Form -->
+  <form [formGroup]="form" (ngSubmit)="addTask()" class="form-container">
+    <mat-form-field appearance="outline" class="full-width dense-field">
+      <mat-label>Task Title</mat-label>
+      <input matInput formControlName="title" required />
+      <mat-error *ngIf="form.get('title')?.invalid && form.get('title')?.touched">
+        Task title is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width dense-field">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" required />
+      <mat-error *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+        Description is required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Add Task
+    </button>
+  </form>
+
+  <!-- Task List -->
+  <div class="task-container">
+    <mat-card *ngFor="let task of todoList?.tasks" class="task-card">
+      <mat-card-title>
+        <mat-checkbox [checked]="task.completed" (change)="toggleTask(task.id)"> </mat-checkbox>
+        {{ task.title }}
+      </mat-card-title>
+      <mat-card-content>
+        <p>{{ task.description }}</p>
+        <p>
+          Status:
+          <span
+            [ngStyle]="{
+              color: task.completed ? 'green' : 'red',
+              'font-weight': 500,
+            }"
+          >
+            {{ task.completed ? 'Completed' : 'Not Completed' }}
+          </span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

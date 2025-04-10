@@ -1,0 +1,58 @@
+{
+  "lists": [
+    {
+      "id": "1",
+      "title": "Sample List",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Test task",
+          "description": "Try this out",
+          "completed": true
+        },
+        {
+          "id": 1744297761864,
+          "title": "sadasd",
+          "description": "asdasdas",
+          "completed": false
+        },
+        {
+          "id": 1744300118520,
+          "title": "dasasd",
+          "description": "sadasd",
+          "completed": false
+        },
+        {
+          "id": 1744304886495,
+          "title": "sadas",
+          "description": "asdas",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "1744297739902",
+      "title": "1111111",
+      "tasks": [
+        {
+          "id": 1744297745340,
+          "title": "11111",
+          "description": "111111",
+          "completed": true
+        },
+        {
+          "id": 1744297749041,
+          "title": "222222",
+          "description": "22222222",
+          "completed": false
+        },
+        {
+          "id": 1744298336016,
+          "title": "asdasd",
+          "description": "asdasd",
+          "completed": true
+        }
+      ]
+    }
+  ]
+}
